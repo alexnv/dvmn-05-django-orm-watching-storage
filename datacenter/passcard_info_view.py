@@ -10,14 +10,14 @@ def passcard_info_view(request, passcode):
     passcard = get_object_or_404(Passcard, passcode=passcode)
     # Программируем здесь
     this_passcard_visits = []
-    if passcard:
-        visits = Visit.objects.filter(passcard=passcard)
-        for visit in visits:
-            this_passcard_visits.append({
-                'entered_at': localtime(visit.entered_at),
-                'duration': get_duration(visit),
-                'is_strange': is_visit_long(visit)
-            })
+
+    visits = Visit.objects.filter(passcard=passcard)
+    for visit in visits:
+        this_passcard_visits.append({
+            'entered_at': localtime(visit.entered_at),
+            'duration': get_duration(visit),
+            'is_strange': is_visit_long(visit)
+        })
 
     context = {
         'passcard': passcard,
