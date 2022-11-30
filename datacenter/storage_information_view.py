@@ -1,22 +1,12 @@
 from datetime import timezone, datetime
 
+from django.shortcuts import render
 from django.utils.timezone import localtime
 
-from datacenter.models import Passcard
 from datacenter.models import Visit
-from django.shortcuts import render
 
 
 def storage_information_view(request):
-    # Программируем здесь
-
-    # non_closed_visits = [
-    #     {
-    #         'who_entered': 'Richard Shaw',
-    #         'entered_at': '11-04-2018 25:34',
-    #         'duration': '25:03',
-    #     }
-    # ]
     non_closed_visits = []
     visits = Visit.objects.filter(leaved_at__isnull=True)
     for visit in visits:
@@ -29,14 +19,16 @@ def storage_information_view(request):
         )
 
     context = {
-        'non_closed_visits': non_closed_visits,  # не закрытые посещения
+        'non_closed_visits': non_closed_visits,
     }
     return render(request, 'storage_information.html', context)
+
 
 def get_duration(visit):
     delta = datetime.now(timezone.utc) - visit.entered_at
 
     return delta
+
 
 def format_duration(duration):
     seconds = duration.total_seconds()
