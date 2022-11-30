@@ -3,6 +3,7 @@ from datetime import timezone, datetime
 from django.shortcuts import render
 from django.utils.timezone import localtime
 
+from datacenter.visit_duration_functions import format_duration, get_duration
 from datacenter.models import Visit
 
 
@@ -24,14 +25,6 @@ def storage_information_view(request):
     return render(request, 'storage_information.html', context)
 
 
-def get_duration(visit):
-    delta = datetime.now(timezone.utc) - visit.entered_at
-
-    return delta
 
 
-def format_duration(duration):
-    seconds = duration.total_seconds()
-    hours = seconds // 3600
-    minutes = (seconds % 3600) // 60
-    return f'{int(hours)}ч {int(minutes)}мин'
+
