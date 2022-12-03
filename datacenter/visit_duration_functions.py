@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 def format_duration(duration):
     seconds = duration.total_seconds()
     hours = seconds // 3600
@@ -13,8 +16,8 @@ def get_duration(visit):
 def is_visit_long(visit, minutes=60):
     if visit.leaved_at:
         duration = visit.leaved_at - visit.entered_at
-        seconds = duration.total_seconds()
-        if seconds >= (minutes * 60):
-            return True
+    else:
+        duration = datetime.now() - visit.entered_at
+    seconds = duration.total_seconds()
 
-    return False
+    return seconds >= (minutes * 60)
