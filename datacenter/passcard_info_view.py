@@ -3,7 +3,7 @@ from django.utils.timezone import localtime
 
 from datacenter.models import Passcard
 from datacenter.models import Visit
-from datacenter.visit_duration_functions import is_visit_long, get_duration
+from datacenter.visit_duration_functions import is_visit_long, get_duration, format_duration
 
 
 def passcard_info_view(request, passcode):
@@ -15,7 +15,7 @@ def passcard_info_view(request, passcode):
     for visit in visits:
         this_passcard_visits.append({
             'entered_at': localtime(visit.entered_at),
-            'duration': get_duration(visit),
+            'duration': format_duration(get_duration(visit)),
             'is_strange': is_visit_long(visit)
         })
 
