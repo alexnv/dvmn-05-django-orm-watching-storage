@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def format_duration(seconds):
@@ -11,7 +11,7 @@ def get_visit_duration_in_seconds(visit):
     if visit.leaved_at:
         delta = visit.leaved_at - visit.entered_at
     else:
-        delta = datetime.now() - visit.entered_at
+        delta = datetime.now(timezone.utc) - visit.entered_at
     return delta.total_seconds()
 
 
