@@ -12,7 +12,9 @@ DB_PORT=
 DB_NAME=
 DB_USER=
 DB_PASSWORD=
-
+SECRET_KEY=
+DB_ENGINE=
+ALLOWED_HOSTS=
 ```
 
 Python3 должен быть уже установлен. 
